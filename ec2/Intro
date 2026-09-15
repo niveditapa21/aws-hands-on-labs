@@ -1,0 +1,45 @@
+There are six ways , through which we can create the ec2 instances:
+
+| Method             | How you create EC2           |
+| ------------------ | ---------------------------- |
+| **AWS Console**    | Click buttons                |
+| **AWS CLI**        | Commands                     |
+| **Boto3**(AWS API)   Python code                  |
+| **AWS CDK**        | Programming language code    |
+| **Terraform**      | Infrastructure configuration |
+| **CloudFormation** | YAML/JSON template           |
+
+                                                                **AWS API**:
+
+import boto3
+
+ec2 = boto3.client("ec2", region_name="us-east-1")
+
+response = ec2.run_instances(
+    ImageId="ami-xxxxxxxx",
+    InstanceType="t2.micro",
+    MinCount=1,
+    MaxCount=1,
+    KeyName="my-key",
+    SecurityGroupIds=["sg-xxxxxxxx"],
+    SubnetId="subnet-xxxxxxxx"
+)
+
+instance_id = response["Instances"][0]["InstanceId"]
+
+
+                                                            **AWS CLI**
+aws configure
+
+aws ec2 run-instances \
+    --image-id ami-xxxxxxxx \
+    --instance-type t2.micro \
+    --count 1 \
+    --key-name my-key \
+    --security-group-ids sg-xxxxxxxx \
+    --subnet-id subnet-xxxxxxxx
+
+
+
+
+print("Instance created:", instance_id)
