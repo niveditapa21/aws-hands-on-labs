@@ -9,6 +9,7 @@ There are six ways , through which we can create the ec2 instances:
 | **Terraform**      | Infrastructure configuration |
 | **CloudFormation** | YAML/JSON template           |
 
+
                                                                 **AWS API**:
 
 import boto3
