@@ -1,0 +1,185 @@
+## Why is `aws configure` used?
+
+`aws configure` is used to set up AWS CLI on your computer so you can connect to your AWS account and manage AWS resources using PowerShell or a terminal.
+
+For example, instead of opening the AWS Console to check an EC2 instance, you can use a command like:
+
+PowerShell
+
+```
+aws ec2 describe-instances
+```
+
+But first, AWS CLI needs to know which AWS account to use and how to authenticate. That's where `aws configure` comes in.
+
+### 1. Run the command
+
+Open PowerShell and type:
+
+PowerShell
+
+```
+aws configure
+```
+
+It will ask you for four things:
+
+```
+AWS Access Key ID [None]:
+AWS Secret Access Key [None]:
+Default region name [None]:
+Default output format [None]:
+```
+
+### 2. What does each field mean?
+
+|
+Field
+
+|
+
+Meaning
+
+|
+
+Example
+
+|
+| --- | --- | --- |
+|
+
+AWS Access Key ID
+
+|
+
+Identifies your IAM access key
+
+|
+
+`AKIA...`
+
+|
+|
+
+AWS Secret Access Key
+
+|
+
+Secret used to authenticate
+
+|
+
+Keep private
+
+|
+|
+
+Default region
+
+|
+
+AWS region where resources are located
+
+|
+
+`ap-south-1`
+
+|
+|
+
+Default output format
+
+|
+
+How results are displayed
+
+|
+
+`json`
+
+|
+
+For India, a common AWS region is:
+
+```
+ap-south-1
+```
+
+This is the Mumbai region.
+
+### 3. Example setup
+
+PowerShell
+
+```
+aws configure
+```
+
+Example answers:
+
+```
+AWS Access Key ID [None]: AKIAxxxxxxxx
+AWS Secret Access Key [None]: xxxxxxxxxxxxx
+Default region name [None]: ap-south-1
+Default output format [None]: json
+```
+
+Important: Do not share your real access key or secret key with anyone.
+
+### 4. Where are these credentials stored?
+
+On Windows, AWS CLI normally stores the configuration in:
+
+```
+C:\Users\YourUsername\.aws\
+```
+
+Inside that folder:
+
+```
+.aws
+ ├── credentials
+ └── config
+```
+
+* `credentials` → Access key and secret access key.
+
+* `config` → Region and output format.
+
+### 5. How to check whether it works
+
+After configuring, run:
+
+PowerShell
+
+```
+aws sts get-caller-identity
+```
+
+If authentication is successful, AWS returns information about the IAM identity being used.
+
+You can also check your configuration with:
+
+PowerShell
+
+```
+aws configure list
+```
+
+### How this fits into DevOps
+
+Imagine you have a GitHub Actions pipeline that needs to deploy an application to AWS.
+
+```
+Developer pushes code
+        ↓
+GitHub Actions
+        ↓
+AWS CLI
+        ↓
+AWS EC2 / S3 / ECR / EKS
+```
+
+`aws configure` helps set up AWS CLI for local use. In GitHub Actions, you generally configure AWS credentials using GitHub Secrets or OIDC rather than hardcoding credentials.
+
+
